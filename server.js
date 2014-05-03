@@ -1,6 +1,7 @@
 var fs = require('fs');
 var redis = require('redis');
 var express = require('express');
+var bodyParser = require('body-parser');
 
 var app = express();
 var router = express.Router();
@@ -13,22 +14,34 @@ if (process.env.REDISTOGO_URL) {
   var client = redis.createClient();
 }
 
+app.use(bodyParser());
+
 router.param('id', function(req, res, next, id) {
   next();
 });
 
 router.get('/:id', function(req, res) {
-  redis.get(req.params.id, function(err, reply) {
+  client.get(req.params.id, function(err, reply) {
     if (!err) {
       res.send(reply);
+    }
+  });
+})
+
+router.post('/:id', function(req, res) {
+  var value = req.body.value;
+  client.set(req.params.id, value, function(err, reply) {
+    if (!err) {
+      res.send(200, 'SUCCESS');
     }
   });
 });
 
 app.use('/', router);
 
-app.use( function(err, req, res, next) {
+app.use(function(err, req, res, next) {
   if (err) {
+    console.log(err);
     res.send(500, 'ERROR!');
   }
 });
