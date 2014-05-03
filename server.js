@@ -46,12 +46,6 @@ app.use(function(err, req, res, next) {
   }
 });
 
-if (!process.env.PORT) {
-  var port = 3000;
-} else {
-  var port = process.env.PORT;
-}
-
-var server = app.listen(port, function() {
+var server = app.listen(process.env.PORT || 3000, function() {
   console.log('Listening on port %d...', server.address().port);
 });
