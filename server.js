@@ -13,16 +13,19 @@ router.param('id', function(req, res, next, id) {
 
 router.get('/:id', function(req, res) {
   client.get(req.params.id, function(err, reply) {
-    if (err) {
-      // TODO don't return stack trace and show all the files on your computer
-      res.send('ERROR!');
-    } else {
+    if (!err) {
       res.send(reply);
     }
   });
 });
 
 app.use('/', router);
+
+app.use( function(err, req, res, next) {
+  if (err) {
+    res.send(500, 'ERROR!');
+  }
+});
 
 var server = app.listen(3000, function() {
   console.log('Listening on port %d...', server.address().port);
