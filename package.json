@@ -1,0 +1,30 @@
+{
+  "name": "beacon-server",
+  "version": "0.0.0",
+  "description": "The beacon of hope.",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~4.1.1",
+    "redis": "~0.10.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/linkenneth/beacon-server.git"
+  },
+  "keywords": [
+    "beacon",
+    "server",
+    "group29",
+    "oslife"
+  ],
+  "author": "group29",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/linkenneth/beacon-server/issues"
+  }
+}
